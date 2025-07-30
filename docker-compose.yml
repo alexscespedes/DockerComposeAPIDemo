@@ -11,7 +11,7 @@ services:
       - db
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings_DefaultConnection=Server=db;Database=TodoDb;User Id=SA;Password=Fitness32_;
+      - ConnectionStrings__DefaultConnection=Server=db;Database=TodoDb;User Id=SA;Password=Fitness32_;Encrypt=False;TrustServerCertificate=True;
 
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -23,6 +23,7 @@ services:
       - "1433:1433"
     volumes:
       - sqlserverdata:/var/opt/mssql
+    shm_size: 1g
 
 volumes:
   sqlserverdata:
