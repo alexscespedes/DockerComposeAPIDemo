@@ -1,10 +1,21 @@
-version: "3.9"
-
 services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-volume-persistance
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Fitness32_
+    volumes:
+      - sqlvolume:/var/opt/mssql
+    shm_size: 1g
+
   api:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: dotnetapi
     ports:
       - 8080:80
     depends_on:
@@ -13,17 +24,5 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=db;Database=TodoDb;User Id=SA;Password=Fitness32_;Encrypt=False;TrustServerCertificate=True;
 
-  db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver-container-compose
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Fitness32_
-    ports:
-      - "1433:1433"
-    volumes:
-      - sqlserverdata:/var/opt/mssql
-    shm_size: 1g
-
 volumes:
-  sqlserverdata:
+  sqlvolume:
