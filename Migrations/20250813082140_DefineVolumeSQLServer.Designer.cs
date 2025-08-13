@@ -3,6 +3,7 @@ using DockerComposeAPIDemo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DockerComposeAPIDemo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250813082140_DefineVolumeSQLServer")]
+    partial class DefineVolumeSQLServer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,26 +42,6 @@ namespace DockerComposeAPIDemo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TodoItems");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsComplete = false,
-                            Title = "Learn Docker"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsComplete = true,
-                            Title = "Containerize .NET API"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IsComplete = false,
-                            Title = "Run SQL Server in Docker"
-                        });
                 });
 #pragma warning restore 612, 618
         }
